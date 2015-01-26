@@ -4,9 +4,18 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
+app.get('/', function(req,res){
+	res.send("hello world!");
+})
+
+app.get('/name', function(req, res){
+	
+	var result = { name: 'Sam' }
+
+	res.setHeader('Content-Type', 'application/json');
+
+    res.end(JSON.stringify(result));
+})
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
