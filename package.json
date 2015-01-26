@@ -1,5 +1,5 @@
 {
-  "name": "gongtea project",
+  "name": "gongteaproject",
   "version": "0.1.2",
   "description": "A gongtea Node.js app using Express 4",
   "main": "index.js",
@@ -7,7 +7,8 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "~4.9.x"
+    "express": "~4.9.x",
+    "body-parser": "~1.10.x"
   },
   "engines": {
     "node": "0.10.x"

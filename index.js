@@ -1,8 +1,12 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function(req,res){
 	res.send("hello world!");
@@ -12,9 +16,7 @@ app.get('/name', function(req, res){
 	
 	var result = { name: 'Sam' }
 
-	res.setHeader('Content-Type', 'application/json');
-
-    res.end(JSON.stringify(result));
+    res.json(JSON.stringify(result));
 })
 
 app.get('/products', function(req, res){
@@ -50,6 +52,12 @@ app.get('/addons/:id', function(req, res){
 	res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(addons));
 })
+
+app.post('/submit', function(req, res){
+	var result = req.body
+
+    res.json(result);
+})	
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
