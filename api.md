@@ -16,7 +16,7 @@
    http://gongtea.herokuapp.com/addons/pid/
    ```
 3. post submission data from custer
-   >param: json exmple:{"product":1, "addons":2}<br />
+   >param: json example:{"product":1, "addons":2}<br />
    return: To be discussed
    
    ```
