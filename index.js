@@ -37,8 +37,8 @@ app.get('/addons/:id', function(req, res){
 			{aid: 3, name:'Addon3', price: 3}
 		]}
 	var addons2 = {'addons':[
-			{name:'Addon1', price: 1},
-			{name:'Addon2', price: 2}
+			{aid: 1, name:'Addon1', price: 1},
+			{aid: 2, name:'Addon2', price: 2}
 		]}
 
 	var addons = {'addons':[]};
@@ -54,10 +54,43 @@ app.get('/addons/:id', function(req, res){
 })
 
 app.post('/submit', function(req, res){
-	var result = req.body
+	var result = req.body;
 
     res.json(result);
 })	
+
+var customers = customers || [];
+var staffs = staffs || [];
+
+app.post('/addCustomer', function(req, res){
+	var result = req.body;
+
+	customers.push(result);
+
+	res.end();
+})
+
+app.post('/clearCustomers', function(req, res){
+
+	customers = [];
+
+	res.end();
+})
+
+app.post('/addStaff', function(req, res){
+	var result = req.body;
+
+	staffs.push(result);
+
+	res.end();
+})
+
+app.post('/clearStaffs', function(req, res){
+
+	staffs = [];
+
+	res.end();
+})
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
