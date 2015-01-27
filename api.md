@@ -20,7 +20,7 @@
 3. post submission data from custer
 	>method: POST <br />
 	param: json <br />
-	return: To be discussed
+	return: To be discussed <br />
 	example: content-type: application/json; request body: {"product":1, "addons":2}
    
    ```
