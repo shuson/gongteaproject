@@ -1,7 +1,8 @@
 #APIs for RESTful call
 
 1. get all products list
-	>param: None <br />
+	>method: GET <br />
+	param: None <br />
 	return: json
 	
 	```
@@ -9,15 +10,18 @@
 	```
 	
 2. get addons list by product pid
-   >param: pid <br />
-   return: json
+	>method: GET <br />
+	param: pid <br />
+	return: json
    
    ```
    http://gongtea.herokuapp.com/addons/pid/
    ```
 3. post submission data from custer
-   >param: json example:{"product":1, "addons":2}<br />
-   return: To be discussed
+	>method: POST <br />
+	param: json <br />
+	return: To be discussed
+	example: content-type: application/json; request body: {"product":1, "addons":2}
    
    ```
    http://gongtea.herokuapp.com/submit/
