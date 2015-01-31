@@ -92,6 +92,13 @@ app.post('/clearStaffs', function(req, res){
 	res.end();
 })
 
+//test push notification
+var agent = require('./_header');
+agent.createMessage()
+  .device(customers[0])
+  .alert('Hello Universe!')
+  .send();
+
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
