@@ -9,8 +9,7 @@ process.env.DEBUG = process.env.DEBUG
  * Locate your certificate
  */
 
-var join = require('path').join
-  , pfx = join(__dirname, './_cert/pfx.p12');
+var join = require('path').join;
 
 /*!
  * Create a new gateway agent
@@ -24,7 +23,9 @@ var apnagent = require('apnagent')
  */
 
 agent
-  .set('pfx file', pfx)
+  .set('cert file', join(__dirname, '_cert/cert.pem'))
+  .set('key file', join(__dirname, '_cert/key.pem'))
+  .set('passphrase', '123456')
   .enable('sandbox');
 
 /*!
