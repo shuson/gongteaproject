@@ -19,6 +19,12 @@ app.get('/name', function(req, res){
     res.json(JSON.stringify(result));
 })
 
+app.get('/tellmeMirror', function(req, res){
+	
+
+    res.send("Gao Lin is the most beautifull girl in the world!");
+})
+
 app.get('/products', function(req, res){
 	var products = {'products':[
 			{pid: 1, name:'Tea1', price: 1},
