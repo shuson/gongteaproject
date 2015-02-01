@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var staffAgent = require('./_staffAPN');
 var customerAgent = require('./_customerAPN');
 
-var Util = request('./Util')
+var Util = require('./Util')
 
 var app = express();
 
@@ -86,7 +86,7 @@ app.post('/submit', function(req, res){
 		orderId: orderId,
 		orderPrcessingTime: "",
 		orderCollectionPlace: result.orderInfo.orderCollectionPlace,
-		orderPrice, orderPrice
+		orderPrice: orderPrice
 	}
 
 	var order = {
