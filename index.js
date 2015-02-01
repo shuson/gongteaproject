@@ -1,5 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+
+var staffAgent = require('./_staffAPN');
+var customerAgent = require('./_customerAPN');
+
+var Util = request('./Util')
+
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -7,6 +13,11 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+var customers = customers || [{name:'Kyle', deviceId:'<bdb99a74 deeec21f cd4fd1f4 417c553a 52e33c98 0e4258eb f6e846ea c787c56b>'}];
+var staffs = staffs || [{name:'Staff', deviceId:'<9b70f25b 2c2befb5 f08c41ba 7fb1debe 33e8a51a 929c1d22 942e6cf2 3f9871b9>'}];
+
+var oderIdRunningNo = 0;
 
 app.get('/', function(req,res){
 	res.send("hello world!");
@@ -62,16 +73,58 @@ app.get('/addons/:id', function(req, res){
 app.post('/submit', function(req, res){
 	var result = req.body;
 
-    res.json(result);
+	console.log("submit to staff point pid is:"+result.productInfo.productId);
+	console.log("submit to staff point is:"+staffs[0].deviceId);
+
+	//generate orderId
+	var orderId = Util.orderIdGenerator(oderIdRunningNo);
+
+	//to calculate the price
+	var orderPrice = 1;
+
+	var orderInfo = {
+		orderId: orderId,
+		orderPrcessingTime: "",
+		orderCollectionPlace: result.orderInfo.orderCollectionPlace,
+		orderPrice, orderPrice
+	}
+
+	var order = {
+		orderInfo: orderInfo,
+		customerInfo: result.customerInfo,
+		productInfo: result.productInfo
+	}
+
+	staffAgent.createMessage()
+	.set("order", order)
+	.device(staffs[0].deviceId)
+  	.alert("New order is coming!")
+  	.send();
+
+    res.end();
 })	
 
-var customers = customers || [];
-var staffs = staffs || [];
+app.post('/confirm', function(req, res){
+	var result = req.body;
+
+	var confirmation = {
+		orderInfo: result.orderInfo,
+		productInfo: result.productInfo
+	}
+
+	customerAgent.createMessage()
+	.set("confirmation", confirmation)
+	.device(customers[0].deviceId)
+  	.alert("Your order is confirmed!")
+  	.send();
+
+  	res.end();
+})
 
 app.post('/addCustomer', function(req, res){
 	var result = req.body;
 
-	customers.push(result);
+	//console.log("the addCustomer's token is:" + result.name+"---"+result.deviceId);
 
 	res.end();
 })
@@ -97,13 +150,6 @@ app.post('/clearStaffs', function(req, res){
 
 	res.end();
 })
-
-//test push notification
-var agent = require('./_header');
-agent.createMessage()
-  .device(customers[0])
-  .alert('Hello Universe!')
-  .send();
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));

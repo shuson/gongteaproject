@@ -23,8 +23,8 @@ var apnagent = require('apnagent')
  */
 
 agent
-  .set('cert file', join(__dirname, '_cert/cert.pem'))
-  .set('key file', join(__dirname, '_cert/key.pem'))
+  .set('cert file', join(__dirname, '_cert/staff_cert.pem'))
+  .set('key file', join(__dirname, '_cert/staff_key.pem'))
   .set('passphrase', '123456')
   .enable('sandbox');
 
