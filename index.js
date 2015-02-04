@@ -31,9 +31,13 @@ app.get('/name', function(req, res){
 })
 
 app.get('/tellmeMirror', function(req, res){
-	
 
     res.send("Gao Lin is the most beautifull girl in the world!");
+})
+
+app.get('/bless', function(req, res){
+
+	res.send("Bless for NiuNiu Nie, from Family!")
 })
 
 app.get('/products', function(req, res){
@@ -72,9 +76,6 @@ app.get('/addons/:id', function(req, res){
 
 app.post('/submit', function(req, res){
 	var result = req.body;
-
-	console.log("submit to staff point pid is:"+result.productInfo.productId);
-	console.log("submit to staff point is:"+staffs[0].deviceId);
 
 	//generate orderId
 	var orderId = Util.orderIdGenerator(oderIdRunningNo);
