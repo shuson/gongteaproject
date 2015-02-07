@@ -66,7 +66,7 @@
 		"productId":1, 
 		"addonId":2
 		},
-	orderInfo:{
+	"orderInfo":{
 			orderId:"",//by first time generated, it is null
 			orderPrcessingTime:"", //by first time generated, it is null
 			orderCollectionPlace:"hardcoded", //this is generated when customer select the staff place
