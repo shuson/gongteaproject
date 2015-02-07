@@ -51,7 +51,7 @@ app.post('/submit', function(req, res){
 	var orderId = Util.orderIdGenerator();
 
 	//to calculate the price
-	var orderPrice = Util.orderPriceGenerator(result.productInfo.productId, result.productInfo.addonId);
+	var orderPrice = 1; //Util.orderPriceGenerator(result.productInfo.productId, result.productInfo.addonId);
 
 	var orderInfo = {
 		orderId: orderId,
