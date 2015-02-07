@@ -15,9 +15,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var customers = customers || [{name:'Kyle', deviceId:'<bdb99a74 deeec21f cd4fd1f4 417c553a 52e33c98 0e4258eb f6e846ea c787c56b>'}];
-var staffs = staffs || [{name:'Staff', deviceId:'<9b70f25b 2c2befb5 f08c41ba 7fb1debe 33e8a51a 929c1d22 942e6cf2 3f9871b9>'}];
-
-var oderIdRunningNo = 0;
+var staffs = staffs || [{name:'Staff', deviceId:'<26f657eb 5b5d20f4 f4fd4504 435cf819 e6e8bb30 0e0c1800 3499ff04 94e7598e>'}];
 
 app.get('/', function(req,res){
 	res.send("hello world!");
@@ -28,16 +26,6 @@ app.get('/name', function(req, res){
 	var result = { name: 'Sam' }
 
     res.json(JSON.stringify(result));
-})
-
-app.get('/tellmeMirror', function(req, res){
-
-    res.send("Gao Lin is the most beautifull girl in the world!");
-})
-
-app.get('/bless', function(req, res){
-
-	res.send("Bless for NiuNiu Nie, from Family!")
 })
 
 app.get('/products', function(req, res){
@@ -60,10 +48,10 @@ app.post('/submit', function(req, res){
 	var result = req.body;
 
 	//generate orderId
-	var orderId = Util.orderIdGenerator(oderIdRunningNo);
+	var orderId = Util.orderIdGenerator();
 
 	//to calculate the price
-	var orderPrice = 1;
+	var orderPrice = Util.orderPriceGenerator(result.productInfo.productId, result.productInfo.addonId);
 
 	var orderInfo = {
 		orderId: orderId,
@@ -71,7 +59,7 @@ app.post('/submit', function(req, res){
 		orderCollectionPlace: result.orderInfo.orderCollectionPlace,
 		orderPrice: orderPrice
 	}
-
+	console.log(result.customerInfo);
 	var order = {
 		orderInfo: orderInfo,
 		customerInfo: result.customerInfo,
@@ -84,7 +72,8 @@ app.post('/submit', function(req, res){
   	.alert("New order is coming!")
   	.send();
 
-    res.end();
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({'status': 'success'}));
 })	
 
 app.post('/confirm', function(req, res){
@@ -101,7 +90,8 @@ app.post('/confirm', function(req, res){
   	.alert("Your order is confirmed!")
   	.send();
 
-  	res.end();
+  	res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({'status': 'success'}));
 })
 
 app.post('/addCustomer', function(req, res){
