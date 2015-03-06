@@ -4,7 +4,8 @@
   "description": "A gongtea Node.js app using Express 4",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": 'npm test''
   },
   "dependencies": {
     "express": "~4.9.x",
